@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "191435916627",
+    "firebase_url": "https://sample-a47a8.firebaseio.com",
+    "project_id": "sample-a47a8",
+    "storage_bucket": "sample-a47a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191435916627:android:aa77c7ef549c450e",
+        "android_client_info": {
+          "package_name": "com.example.remote_config_sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191435916627-8broi6tede14mjlec4jjavjgf5erk98p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZWVYp4uEE_ZFZyLz1EzPOpswGDWqXDTA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191435916627-8broi6tede14mjlec4jjavjgf5erk98p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "191435916627-3lanaam10bqrk0h08mundtgte2g1q5iv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hiro-nagami.sampleapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
