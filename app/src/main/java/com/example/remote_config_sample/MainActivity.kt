@@ -1,27 +1,19 @@
 package com.example.remote_config_sample
 
 import android.graphics.Color
-import android.media.tv.TvContract
 import android.os.Bundle
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
-//import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import com.google.firebase.remoteconfig.*
 import io.repro.android.Repro
 
 class Config {
-    private var remoteConfig: FirebaseRemoteConfig
-    private var isUsingRepro: Boolean = false
-
-    constructor(isUsingRepro: Boolean) {
-        this.isUsingRepro = isUsingRepro
-
+    constructor() {
         var map = mutableMapOf<String, Any>()
         map["title"] = "Tシャツ"
         map["message"] = "夏に着るおしゃれアイテム！"
@@ -29,63 +21,29 @@ class Config {
         map["switch_button_position"] = "false"
         map["spring_mode"] = "false"
 
-        // Setup Firebase
-        var settings = FirebaseRemoteConfigSettings
-            .Builder()
-            .setMinimumFetchIntervalInSeconds(1).build()
-
-        remoteConfig = FirebaseRemoteConfig.getInstance()
-        remoteConfig.setConfigSettingsAsync(settings)
-        remoteConfig.setDefaults(map as Map<String, Any>?)
-
-        // Setup Repro
-        Repro.getRemoteConfig().setDefault(map as Map<String, Any>?)
+        Repro.getRemoteConfig().setDefaultsFromMap(map as Map<String, Any>?)
     }
 
     fun getTitle(): String {
-        if (this.isUsingRepro) {
-            return Repro.getRemoteConfig().get("title") as String
-        }
-
-        return remoteConfig.getString("title")
+        return Repro.getRemoteConfig().get("title").asString() ?: ""
     }
 
     fun getTitleColor(): Int {
-        if (this.isUsingRepro) {
-            return Color.parseColor("#" + Repro.getRemoteConfig().get("title_color") as String)
-        }
-
-        return Color.parseColor("#" + remoteConfig.getString("title_color"))
+        return Color.parseColor("#" + (Repro.getRemoteConfig().get("title_color").asString() ?: "FFFFFF"))
     }
 
     fun getMessage(): String {
-        if (this.isUsingRepro) {
-            return Repro.getRemoteConfig().get("message") as String
-        }
-
-        return remoteConfig.getString("message")
+        return Repro.getRemoteConfig().get("message").asString() ?: ""
     }
 
     fun isSpringMode(): Boolean {
-        if (this.isUsingRepro) {
-            return (Repro.getRemoteConfig().get("spring_mode") as String) == "true"
-        }
-
-        return remoteConfig.getString("spring_mode") == "true"
+        return Repro.getRemoteConfig().get("spring_mode").asString() ?: "false" == "true"
     }
 
     fun setup(callback: () -> Unit) {
-        remoteConfig.fetch().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                remoteConfig.activate()
-            }
-
+        Repro.getRemoteConfig().fetch(10) {
             callback()
         }
-    }
-
-    fun setupRepro(callback: () -> Unit) {
-        callback()
     }
 }
 
@@ -98,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private var cherryColorLight = Color.parseColor("#fffafa")
     private var whiteColor = Color.parseColor("#FFFFFF")
 
-    private var config: Config = Config(true)
+    private var config: Config = Config()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,10 +67,7 @@ class MainActivity : AppCompatActivity() {
         linearLayout2.visibility = LinearLayout.INVISIBLE
 
         updateValues()
-
-        Repro.setLogLevel(android.util.Log.DEBUG)
-//        Repro.setup("c486b90a-030f-417b-8838-cb041ecc7a7f")
-        Repro.setup("234eb3e6-85ab-4978-a359-108908136ab2")
+        setupRepro()
     }
 
     override fun onResume() {
@@ -122,10 +77,10 @@ class MainActivity : AppCompatActivity() {
             val view = this.getLayoutInflater().inflate(R.layout.content_main, null);
             AlertDialog.Builder(this)
                 .setView(view)
-                .show();
+                .show()
         }
 
-        config.setupRepro {
+        config.setup {
             updateValues()
         }
     }
@@ -157,6 +112,12 @@ class MainActivity : AppCompatActivity() {
 
         titleView.text = config.getTitle()
         messageView.text = config.getMessage()
+    }
+
+    private fun setupRepro() {
+        Repro.setLogLevel(android.util.Log.DEBUG)
+        Repro.setup("234eb3e6-85ab-4978-a359-108908136ab2")
+
     }
 
     private fun setupUI() {
