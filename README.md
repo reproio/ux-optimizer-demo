@@ -12,6 +12,10 @@
 
 <img width="600" alt="スクリーンショット 2019-10-24 14 11 56 2" src="https://user-images.githubusercontent.com/25496478/67455523-ce51a680-f668-11e9-9997-7180aec39c14.png">
 
+## Setup
+1. Please set `SDK Token` of your repro application to `MainActivity.kt > setupRepro() -> setup('YOUR_TOKEN')`.
+2. If you change Repro SDK Version, you can change sdk version of `app > build.gradle > dependencies`.
+
 ## UX-Optimizer Parameters
 
 |Key|  Type |  Example  |
