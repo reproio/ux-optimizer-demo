@@ -2,6 +2,7 @@ package com.example.remote_config_sample
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
@@ -37,11 +38,13 @@ class Config {
     }
 
     fun isSpringMode(): Boolean {
-        return Repro.getRemoteConfig().get("spring_mode").asString() ?: "false" == "true"
+        Log.i("Spring Mode", "spring_mode: " + Repro.getRemoteConfig().get("spring_mode").asString())
+        return (Repro.getRemoteConfig().get("spring_mode").asString() ?: "false") == "true"
     }
 
     fun setup(callback: () -> Unit) {
-        Repro.getRemoteConfig().fetch(10) {
+        Repro.getRemoteConfig().fetch(5000) {
+            Repro.getRemoteConfig().activateFetched()
             callback()
         }
     }
@@ -71,6 +74,14 @@ class MainActivity : AppCompatActivity() {
         setupRepro()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        config.setup {
+            updateValues()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -79,10 +90,6 @@ class MainActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setView(view)
                 .show()
-        }
-
-        config.setup {
-            updateValues()
         }
     }
 
@@ -106,7 +113,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateValues() {
         titleView.text = title
         if (config.isSpringMode()) {
-            setupSprintUI()
+            setupSpringUI()
         } else {
             setupUI()
         }
@@ -142,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         titleView.setTextColor(config.getTitleColor())
     }
 
-    private fun setupSprintUI() {
+    private fun setupSpringUI() {
         linearLayout1.visibility = LinearLayout.VISIBLE
         linearLayout2.visibility = LinearLayout.VISIBLE
 
