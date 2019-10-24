@@ -1,7 +1,7 @@
 # remote-config-demo
 
 ## How to build application.
-1. Install Android Studio over 3.4.
+1. Install Android Studio `3.4` ~.
 2. Pull this repository.
 3. Open this project root with Android Studio.
 4. Android Studio will synchronize automatically gradle. If yours don't it, you can synchronize manully from `File > Sync Project with Grale File`.
