@@ -23,5 +23,6 @@
 
 ## Change Theme
 Spring theme is applied if `spring_mode` is set `true`.
+If you enable Spring Mode, you cannot change `title_color`. 
 <img width="300" alt="スクリーンショット 2019-10-24 14 11 56 2" src="https://user-images.githubusercontent.com/25496478/67455467-a2cebc00-f668-11e9-91ef-b34df1ca2bdc.png">
 ![season_ux_optimizer](https://user-images.githubusercontent.com/25496478/67455467-a2cebc00-f668-11e9-91ef-b34df1ca2bdc.png)
