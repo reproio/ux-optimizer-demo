@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRepro() {
         Repro.setLogLevel(android.util.Log.DEBUG)
-        Repro.setup("234eb3e6-85ab-4978-a359-108908136ab2")
+        Repro.setup("YOUR_TOKEN")
 
     }
 
