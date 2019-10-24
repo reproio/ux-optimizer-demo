@@ -25,6 +25,7 @@
 |title|  string  |  Tシャツ  |
 |message|  string  | 夏に着るおしゃれアイテム！ |
 |title_color|  string  | 333333 |
+|image_url|  string, null  | https://example.com/sample.jpg |
 |spring_mode|  string  | true |
 
 ## Change Theme
