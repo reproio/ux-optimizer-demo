@@ -9,20 +9,22 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import io.repro.android.Repro
 
 class Config {
     constructor() {
-        var map = mutableMapOf<String, Any>()
+        var map = mutableMapOf<String, Any?>()
         map["title"] = "Tシャツ"
         map["message"] = "夏に着るおしゃれアイテム！"
         map["title_color"] = "333333"
         map["switch_button_position"] = "false"
         map["spring_mode"] = "false"
+        map["image_url"] = null
 
-        Repro.getRemoteConfig().setDefaultsFromMap(map as Map<String, Any>?)
+        Repro.getRemoteConfig().setDefaultsFromMap(map as Map<String, Any?>?)
     }
 
     fun getTitle(): String {
@@ -40,6 +42,10 @@ class Config {
     fun isSpringMode(): Boolean {
         Log.i("Spring Mode", "spring_mode: " + Repro.getRemoteConfig().get("spring_mode").asString())
         return (Repro.getRemoteConfig().get("spring_mode").asString() ?: "false") == "true"
+    }
+
+    fun getImageUrl(): String? {
+        return Repro.getRemoteConfig().get("image_url").asString()
     }
 
     fun setup(callback: () -> Unit) {
@@ -123,9 +129,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRepro() {
-        Repro.setLogLevel(android.util.Log.DEBUG)
+        Repro.setLogLevel(Log.DEBUG)
         Repro.setup("<YOUR_REPRO_SDK_TOKEN>")
-
     }
 
     private fun setupUI() {
@@ -146,7 +151,12 @@ class MainActivity : AppCompatActivity() {
         button2.setTextColor(this.whiteColor)
         titleView.setTextColor(this.cherryColorDark)
         content_main.setBackgroundColor(this.cherryColorLight)
+
         titleView.setTextColor(config.getTitleColor())
+
+        if (config.getImageUrl() != null) {
+            Glide.with(this).load(config.getImageUrl()).into(productView)
+        }
     }
 
     private fun setupSpringUI() {
@@ -160,7 +170,10 @@ class MainActivity : AppCompatActivity() {
         button2.setTextColor(this.whiteColor)
         titleView.setTextColor(this.cherryColorDark)
         content_main.setBackgroundColor(this.cherryColorLight)
-//        productView.setBackgroundColor(this.cherryColor)
+
+        if (config.getImageUrl() != null) {
+            Glide.with(this).load(config.getImageUrl()).into(productView)
+        }
     }
 
 }
