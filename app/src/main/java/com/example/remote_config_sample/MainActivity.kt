@@ -21,7 +21,7 @@ class Config {
         map["message"] = "夏に着るおしゃれアイテム！"
         map["title_color"] = "333333"
         map["switch_button_position"] = "false"
-        map["spring_mode"] = "false"
+        map["seasonal_theme"] = "null"
         map["image_url"] = null
 
         Repro.getRemoteConfig().setDefaultsFromMap(map as Map<String, Any?>?)
@@ -40,8 +40,8 @@ class Config {
     }
 
     fun isSpringMode(): Boolean {
-        Log.i("Spring Mode", "spring_mode: " + Repro.getRemoteConfig().get("spring_mode").asString())
-        return (Repro.getRemoteConfig().get("spring_mode").asString() ?: "false") == "true"
+        Log.i("Spring Mode", "seasonal_theme: " + Repro.getRemoteConfig().get("seasonal_theme").asString())
+        return (Repro.getRemoteConfig().get("seasonal_theme").asString() ?: "false") == "autumn"
     }
 
     fun getImageUrl(): String? {
@@ -60,9 +60,9 @@ class MainActivity : AppCompatActivity() {
 
     private var TAG = "MainActivity"
 
-    private var cherryColorDark = Color.parseColor("#FF8298")
-    private var cherryColor = Color.parseColor("#FF9BAD")
-    private var cherryColorLight = Color.parseColor("#fffafa")
+    private var cherryColorDark = Color.parseColor("#f5590e")
+    private var cherryColor = Color.parseColor("#ff7938")
+    private var cherryColorLight = Color.parseColor("#FFFFFF")
     private var whiteColor = Color.parseColor("#FFFFFF")
 
     private var config: Config = Config()
