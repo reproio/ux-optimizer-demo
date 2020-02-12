@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRepro() {
         Repro.setLogLevel(Log.DEBUG)
-        Repro.setup("052efef0-ad3f-4709-8b75-5175ec446258")
+        Repro.setup("SDK_TOKEN")
 
     }
 
