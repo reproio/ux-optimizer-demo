@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -23,6 +24,7 @@ class Config {
         map["switch_button_position"] = "false"
         map["spring_mode"] = "false"
         map["image_url"] = null
+        map["button_position"] = "B"
 
         Repro.getRemoteConfig().setDefaultsFromMap(map as Map<String, Any?>?)
     }
@@ -46,6 +48,11 @@ class Config {
 
     fun getImageUrl(): String? {
         return Repro.getRemoteConfig().get("image_url").asString()
+    }
+
+    fun isChangedButtonPosition(): Boolean {
+        var position = Repro.getRemoteConfig().get("button_position").asString()?: "B"
+        return position != "B"
     }
 
     fun setup(callback: () -> Unit) {
@@ -144,15 +151,20 @@ class MainActivity : AppCompatActivity() {
         var toolbarColor = TypedValue();
         theme.resolveAttribute(android.R.attr.colorPrimary, toolbarColor, true)
         toolbar.setBackgroundColor(toolbarColor.data)
-
         toolbar.setTitleTextColor(this.whiteColor)
+
+        button1.setBackgroundColor(toolbarColor.data)
+        button1.setTextColor(this.whiteColor)
+        button1.isVisible = config.isChangedButtonPosition()
+
         button2.setBackgroundColor(toolbarColor.data)
-
         button2.setTextColor(this.whiteColor)
-        titleView.setTextColor(this.cherryColorDark)
-        content_main.setBackgroundColor(this.cherryColorLight)
+        button2.isVisible = !config.isChangedButtonPosition()
 
+        titleView.setTextColor(this.cherryColorDark)
         titleView.setTextColor(config.getTitleColor())
+
+        content_main.setBackgroundColor(this.cherryColorLight)
 
         if (config.getImageUrl() != null) {
             Glide.with(this).load(config.getImageUrl()).into(productView)
@@ -166,8 +178,15 @@ class MainActivity : AppCompatActivity() {
         window.statusBarColor = this.cherryColorDark
         toolbar.setBackgroundColor(this.cherryColor)
         toolbar.setTitleTextColor(this.whiteColor)
+
+        button1.setBackgroundColor(this.cherryColor)
+        button1.setTextColor(this.whiteColor)
+        button1.isVisible = config.isChangedButtonPosition()
+
         button2.setBackgroundColor(this.cherryColor)
         button2.setTextColor(this.whiteColor)
+        button2.isVisible = !config.isChangedButtonPosition()
+
         titleView.setTextColor(this.cherryColorDark)
         content_main.setBackgroundColor(this.cherryColorLight)
 

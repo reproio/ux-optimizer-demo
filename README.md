@@ -27,6 +27,7 @@
 |title_color|  string  | 333333 |
 |image_url|  string, null  | https://example.com/sample.jpg |
 |spring_mode|  string  | true |
+|button_position|  string, A or B  | A |
 
 ## Change Theme
 Spring theme is applied if `spring_mode` is set `true`.
