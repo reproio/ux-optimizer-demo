@@ -4,7 +4,7 @@
 1. Install Android Studio `3.4` or later.
 2. Clone this repository.
 3. Open this project in Android Studio.
-4. Android Studio should synchronize automatically with gradle, but you may need to synchronize manully with `File > Sync Project with Grale File`.
+4. Android Studio should synchronize automatically with gradle, but you may need to synchronize manully with `File > Sync Project with Gradle File`.
 5. Then please select the `app` by build configuration.
 
 <img width="600" alt="" src="https://user-images.githubusercontent.com/25496478/67455522-cd207980-f668-11e9-9613-5748d428266f.png">
