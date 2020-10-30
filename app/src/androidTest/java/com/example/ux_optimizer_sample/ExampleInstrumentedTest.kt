@@ -1,4 +1,4 @@
-package com.example.remote_config_sample
+package com.example.ux_optimizer_sample
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.example.remote_config_sample", appContext.packageName)
+        assertEquals("com.example.ux_optimizer_sample", appContext.packageName)
     }
 }

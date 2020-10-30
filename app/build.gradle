@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.example.remote_config_sample"
+        applicationId "com.example.ux_optimizer_sample"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1

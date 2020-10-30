@@ -1,4 +1,4 @@
-package com.example.remote_config_sample
+package com.example.ux_optimizer_sample
 
 import android.graphics.Color
 import android.os.Bundle
@@ -16,8 +16,8 @@ import kotlinx.android.synthetic.main.content_main.*
 import io.repro.android.Repro
 
 class Config {
-    constructor() {
-        var map = mutableMapOf<String, Any?>()
+    init {
+        val map = mutableMapOf<String, Any?>()
         map["title"] = "Tシャツ"
         map["message"] = "夏に着るおしゃれアイテム！"
         map["title_color"] = "333333"
@@ -25,7 +25,6 @@ class Config {
         map["spring_mode"] = "false"
         map["image_url"] = null
         map["button_position"] = "B"
-
         Repro.getRemoteConfig().setDefaultsFromMap(map as Map<String, Any?>?)
     }
 
@@ -34,7 +33,9 @@ class Config {
     }
 
     fun getTitleColor(): Int {
-        return Color.parseColor("#" + (Repro.getRemoteConfig().get("title_color").asString() ?: "FFFFFF"))
+        return Color.parseColor(
+            "#" + (Repro.getRemoteConfig().get("title_color").asString() ?: "FFFFFF")
+        )
     }
 
     fun getMessage(): String {
@@ -42,7 +43,10 @@ class Config {
     }
 
     fun isSpringMode(): Boolean {
-        Log.i("Spring Mode", "spring_mode: " + Repro.getRemoteConfig().get("spring_mode").asString())
+        Log.i(
+            "Spring Mode",
+            "spring_mode: " + Repro.getRemoteConfig().get("spring_mode").asString()
+        )
         return (Repro.getRemoteConfig().get("spring_mode").asString() ?: "false") == "true"
     }
 
@@ -51,7 +55,7 @@ class Config {
     }
 
     fun isChangedButtonPosition(): Boolean {
-        var position = Repro.getRemoteConfig().get("button_position").asString()?: "B"
+        val position = Repro.getRemoteConfig().get("button_position").asString() ?: "B"
         return position != "B"
     }
 
@@ -64,9 +68,6 @@ class Config {
 }
 
 class MainActivity : AppCompatActivity() {
-
-    private var TAG = "MainActivity"
-
     private var cherryColorDark = Color.parseColor("#FF8298")
     private var cherryColor = Color.parseColor("#FF9BAD")
     private var cherryColorLight = Color.parseColor("#fffafa")
@@ -83,8 +84,6 @@ class MainActivity : AppCompatActivity() {
         linearLayout2.visibility = LinearLayout.INVISIBLE
 
         updateValues()
-
-        setupRepro()
     }
 
     override fun onStart() {
@@ -135,20 +134,15 @@ class MainActivity : AppCompatActivity() {
         messageView.text = config.getMessage()
     }
 
-    private fun setupRepro() {
-        Repro.setLogLevel(Log.DEBUG)
-        Repro.setup("<YOUR_REPRO_SDK_TOKEN>")
-    }
-
     private fun setupUI() {
         linearLayout1.visibility = LinearLayout.INVISIBLE
         linearLayout2.visibility = LinearLayout.INVISIBLE
 
-        var outValue = TypedValue()
+        val outValue = TypedValue()
         theme.resolveAttribute(android.R.attr.statusBarColor, outValue, true)
         window.statusBarColor = outValue.data;
 
-        var toolbarColor = TypedValue();
+        val toolbarColor = TypedValue();
         theme.resolveAttribute(android.R.attr.colorPrimary, toolbarColor, true)
         toolbar.setBackgroundColor(toolbarColor.data)
         toolbar.setTitleTextColor(this.whiteColor)

@@ -1,4 +1,4 @@
-package com.example.remote_config_sample
+package com.example.ux_optimizer_sample
 
 import org.junit.Test
 
