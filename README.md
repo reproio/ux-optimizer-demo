@@ -1,4 +1,4 @@
-# remote-config-demo
+# Ux Optimizer Sample Application
 
 ## How to build the demo application.
 1. Install Android Studio `3.4` or later.
